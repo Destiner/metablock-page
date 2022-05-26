@@ -21,7 +21,9 @@
     "lint:stylelint": "stylelint \"src/**/*.{css,vue}\""
   },
   "dependencies": {
+    "@ethersproject/providers": "^5.6.8",
     "@fontsource/courier-prime": "^4.5.7",
+    "mev-inspect": "^0.8.0",
     "vue": "3.2.33",
     "vue-router": "4.0.14"
   },
