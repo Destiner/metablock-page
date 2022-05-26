@@ -1,0 +1,47 @@
+{
+  "name": "metablock-page",
+  "version": "1.0.0",
+  "description": "Metablock Page",
+  "author": "Timur Badretdinov <destinerx@gmail.com>",
+  "keywords": [
+    "vue",
+    "starter"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Destiner/metablock-page.git"
+  },
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite",
+    "lint": "npm run lint:prettier && npm run lint:eslint && npm run lint:stylelint",
+    "lint:prettier": "prettier -c \"src/**/*.{json,js,ts,vue}\"",
+    "lint:eslint": "eslint \"src/**/*.{js,ts,vue}\"",
+    "lint:stylelint": "stylelint \"src/**/*.{css,vue}\""
+  },
+  "dependencies": {
+    "@fontsource/courier-prime": "^4.5.7",
+    "vue": "3.2.33",
+    "vue-router": "4.0.14"
+  },
+  "devDependencies": {
+    "@babel/types": "7.17.10",
+    "@typescript-eslint/eslint-plugin": "5.23.0",
+    "@typescript-eslint/parser": "5.23.0",
+    "@vitejs/plugin-vue": "2.3.1",
+    "@vue/compiler-sfc": "3.2.33",
+    "eslint": "8.15.0",
+    "eslint-import-resolver-typescript": "2.7.1",
+    "eslint-plugin-import": "2.26.0",
+    "eslint-plugin-vue": "8.7.1",
+    "prettier": "2.6.2",
+    "stylelint": "14.8.1",
+    "stylelint-config-property-sort-order-smacss": "9.0.0",
+    "stylelint-config-recommended-vue": "1.4.0",
+    "stylelint-config-standard": "25.0.0",
+    "typescript": "4.6.4",
+    "vite": "2.9.9",
+    "vue-tsc": "0.34.15"
+  }
+}
