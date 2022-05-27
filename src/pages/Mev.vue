@@ -2,38 +2,27 @@
   <div class="page">
     <div class="content">
       <div class="chain">
-        <label for="chain-selector">Chain</label>
-        <select
-          id="chain-selector"
+        <MetaSelect
           v-model="chainId"
-        >
-          <option
-            v-for="chain in chains"
-            :key="chain.value"
-            :value="chain.value"
-          >
-            {{ chain.label }}
-          </option>
-        </select>
+          :options="chains"
+          :label="'Chain'"
+        />
       </div>
       <div class="tx">
-        <label for="tx-input">Transaction hash</label>
-        <input
-          id="tx-input"
+        <MetaInput
           v-model="txHash"
-          type="text"
+          :label="'Transaction hash'"
         />
       </div>
       <div class="example">
         <div @click="getExample()">Try random example</div>
       </div>
       <div>
-        <button
+        <MetaButton
           :disabled="loading"
+          :label="'Inspect'"
           @click="inspect"
-        >
-          Inspect
-        </button>
+        />
       </div>
       <div
         v-if="!loading"
@@ -104,61 +93,65 @@ import {
 } from 'mev-inspect';
 import { computed, ref, watch } from 'vue';
 
+import MetaButton from '@/components/MetaButton.vue';
+import MetaInput from '@/components/MetaInput.vue';
+import MetaSelect from '@/components/MetaSelect.vue';
+
 interface Example {
   label: string;
   hash: string;
-  chainId: ChainId;
+  chainId: string;
 }
 
 const examples: Example[] = [
   {
     label: 'Uniswap V2 X Uniswap V3 arbitrage',
     hash: '0x88e99b372a7524a750bb846b91cd9433a22c7cce886edee4879b70cb47f0d0fe',
-    chainId: 1,
+    chainId: '1',
   },
   {
     label: 'Compound liquidation',
     hash: '0xdf838db24228f280eba8a279266d1602b03b54507afdca3cb4b4ec640535642b',
-    chainId: 1,
+    chainId: '1',
   },
   {
     label: 'Aave V2 AMM market liquidation',
     hash: '0x9529b0332f51d586a1d30f9106558daf3dbc66c6bbbd32935f19fbc2601b7aa1',
-    chainId: 1,
+    chainId: '1',
   },
   {
     label: 'Balancer V2 X Sushiswap arbitrage (Polygon)',
     hash: '0xde56117bfdf9fe034b9e6bdebfc113df28ae93e8cd26c2be872f0c251c256aeb',
-    chainId: 137,
+    chainId: '137',
   },
   {
     label: 'Aave V3 liquidation (Arbitrum)',
     hash: '0x0891c3846336c495821436adc35eda17bcd01588b1706d4bbb16f3eab59e3f82',
-    chainId: 42161,
+    chainId: '42161',
   },
 ];
 
 interface Chain {
   label: string;
-  value: ChainId;
+  value: string;
 }
 
 const chains: Chain[] = [
   {
     label: 'Ethereum',
-    value: 1,
+    value: '1',
   },
   {
     label: 'Polygon',
-    value: 137,
+    value: '137',
   },
   {
     label: 'Arbitrum',
-    value: 42161,
+    value: '42161',
   },
 ];
 
-const chainId = ref<ChainId>(1);
+const chainId = ref('1');
 
 const txHash = ref('');
 
@@ -194,12 +187,13 @@ function getExample(): void {
 }
 
 async function inspect(): Promise<void> {
+  const chain = parseInt(chainId.value) as ChainId;
   loading.value = true;
   const provider = new AlchemyProvider(
-    chainId.value,
+    chain,
     'NEwRam_rhHUN2SJWDeHcU5Luij4Tcuxq',
   );
-  const inspect = new Inspector(chainId.value, provider);
+  const inspect = new Inspector(chain, provider);
   mev.value = await inspect.tx(txHash.value);
   loading.value = false;
 }
@@ -237,7 +231,7 @@ async function inspect(): Promise<void> {
 }
 
 .example {
-  color: #6a40d5;
+  color: #e87d00;
   font-size: 14px;
   cursor: pointer;
 }
