@@ -32,7 +32,7 @@ jobs:
       run: npm run lint
 
     - name: Type checking
-      run: npx tsc --noEmit && npx vue-tsc --noEmit
+      run: npm run typecheck
 
     - name: Build
       run: npm run build
