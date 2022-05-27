@@ -1,82 +1,84 @@
 <template>
   <div class="page">
-    <div class="chain">
-      <label for="chain-selector">Chain</label>
-      <select
-        id="chain-selector"
-        v-model="chainId"
-      >
-        <option
-          v-for="chain in chains"
-          :key="chain.value"
-          :value="chain.value"
+    <div class="content">
+      <div class="chain">
+        <label for="chain-selector">Chain</label>
+        <select
+          id="chain-selector"
+          v-model="chainId"
         >
-          {{ chain.label }}
-        </option>
-      </select>
-    </div>
-    <div class="tx">
-      <label for="tx-input">Transaction hash</label>
-      <input
-        id="tx-input"
-        v-model="txHash"
-        type="text"
-      />
-    </div>
-    <div class="example">
-      <div @click="getExample()">Try random example</div>
-    </div>
-    <div>
-      <button
-        :disabled="loading"
-        @click="inspect"
-      >
-        Inspect
-      </button>
-    </div>
-    <div
-      v-if="!loading"
-      class="mevs"
-    >
+          <option
+            v-for="chain in chains"
+            :key="chain.value"
+            :value="chain.value"
+          >
+            {{ chain.label }}
+          </option>
+        </select>
+      </div>
+      <div class="tx">
+        <label for="tx-input">Transaction hash</label>
+        <input
+          id="tx-input"
+          v-model="txHash"
+          type="text"
+        />
+      </div>
+      <div class="example">
+        <div @click="getExample()">Try random example</div>
+      </div>
+      <div>
+        <button
+          :disabled="loading"
+          @click="inspect"
+        >
+          Inspect
+        </button>
+      </div>
       <div
-        v-for="(mevItem, index) in mev"
-        :key="index"
-        class="mev"
+        v-if="!loading"
+        class="mevs"
       >
-        <div v-if="mevItem.swaps">
-          <h3>Arbitrage</h3>
-          <div>start amount: {{ mevItem.startAmount }}</div>
-          <div>end amount: {{ mevItem.endAmount }}</div>
-          <div>profit asset: {{ mevItem.profitAsset }}</div>
-          <div class="swaps">
-            <div
-              v-for="swap in mevItem.swaps"
-              :key="swap.event.logIndex"
-              class="swap"
-            >
-              <div>from: {{ swap.from }}</div>
-              <div>to: {{ swap.to }}</div>
-              <div>amount in: {{ swap.amountIn }}</div>
-              <div>amount out: {{ swap.amountOut }}</div>
-              <div>asset in: {{ swap.assetIn }}</div>
-              <div>asset out: {{ swap.assetOut }}</div>
-              <div>contract: {{ swap.contract }}</div>
-              <div>event: {{ swap.event }}</div>
-              <div>transaction: {{ swap.transaction }}</div>
+        <div
+          v-for="(mevItem, index) in mev"
+          :key="index"
+          class="mev"
+        >
+          <div v-if="mevItem.swaps">
+            <h3>Arbitrage</h3>
+            <div>start amount: {{ mevItem.startAmount }}</div>
+            <div>end amount: {{ mevItem.endAmount }}</div>
+            <div>profit asset: {{ mevItem.profitAsset }}</div>
+            <div class="swaps">
+              <div
+                v-for="swap in mevItem.swaps"
+                :key="swap.event.logIndex"
+                class="swap"
+              >
+                <div>from: {{ swap.from }}</div>
+                <div>to: {{ swap.to }}</div>
+                <div>amount in: {{ swap.amountIn }}</div>
+                <div>amount out: {{ swap.amountOut }}</div>
+                <div>asset in: {{ swap.assetIn }}</div>
+                <div>asset out: {{ swap.assetOut }}</div>
+                <div>contract: {{ swap.contract }}</div>
+                <div>event: {{ swap.event }}</div>
+                <div>transaction: {{ swap.transaction }}</div>
+              </div>
             </div>
           </div>
-        </div>
-        <div v-else-if="mevItem.repayment">
-          <h3>Liquidation</h3>
-          <div>collateral amount: {{ mevItem.seizure.amount }}</div>
-          <div>debt amount: {{ mevItem.repayment.amount }}</div>
-          <div>collateral asset: {{ mevItem.seizure.assetC }}</div>
-          <div>debt asset: {{ mevItem.repayment.assetD }}</div>
-          <div>liquidator: {{ mevItem.seizure.seizor }}</div>
-          <div>borrower: {{ mevItem.seizure.borrower }}</div>
-          <div>contract: {{ mevItem.seizure.contract }}</div>
-          <div>event: {{ mevItem.seizure.event }}</div>
-          <div>transaction: {{ mevItem.seizure.transaction }}</div>
+          <div v-else-if="mevItem.repayment">
+            <h3>Liquidation</h3>
+            <div>collateral amount: {{ mevItem.seizure.amount }}</div>
+            <div>debt amount: {{ mevItem.repayment.amount }}</div>
+            <div>collateral asset: {{ mevItem.seizure.assetC }}</div>
+            <div>debt asset: {{ mevItem.repayment.assetD }}</div>
+            <div>liquidator: {{ mevItem.seizure.seizor }}</div>
+            <div>borrower: {{ mevItem.seizure.borrower }}</div>
+            <div>contract: {{ mevItem.seizure.contract }}</div>
+            <div>event: {{ mevItem.seizure.event }}</div>
+            <div>transaction: {{ mevItem.seizure.transaction }}</div>
+          </div>
         </div>
       </div>
     </div>
@@ -88,7 +90,7 @@
   lang="ts"
 >
 import { AlchemyProvider } from '@ethersproject/providers';
-import { ChainId, Inspector } from 'mev-inspect';
+import { ChainId, Inspector, TxMev } from 'mev-inspect';
 import { ref, watch } from 'vue';
 
 interface Example {
@@ -151,7 +153,7 @@ const txHash = ref('');
 
 const loading = ref(false);
 
-const mev = ref([]);
+const mev = ref<TxMev[]>([]);
 
 watch(chainId, () => {
   mev.value = [];
@@ -180,13 +182,13 @@ async function inspect(): Promise<void> {
 }
 </script>
 
-<style>
-#app {
+<style scoped>
+.page {
   display: flex;
   justify-content: center;
 }
 
-.page {
+.content {
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -195,11 +197,11 @@ async function inspect(): Promise<void> {
 }
 
 @media screen and (min-width: 768px) {
-  #app {
+  .page {
     margin-top: 60px;
   }
 
-  .page {
+  .content {
     width: 600px;
     margin: initial;
   }
