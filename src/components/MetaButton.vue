@@ -4,7 +4,10 @@
   </Button>
 </template>
 
-<script setup lang="ts">
+<script
+  setup
+  lang="ts"
+>
 import { Button } from 'brickwork-vue';
 
 defineProps({
