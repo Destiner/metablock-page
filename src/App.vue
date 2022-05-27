@@ -2,7 +2,10 @@
   <router-view />
 </template>
 
-<script setup lang="ts">
+<script
+  setup
+  lang="ts"
+>
 // eslint-disable-next-line import/no-unresolved
 import 'brickwork-vue/style.css';
 </script>
