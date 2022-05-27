@@ -39,24 +39,23 @@
           class="mev"
         >
           <h2>Arbitrage</h2>
-          <div>start amount: {{ arbitrage.startAmount }}</div>
-          <div>end amount: {{ arbitrage.endAmount }}</div>
-          <div>profit asset: {{ arbitrage.profitAsset }}</div>
+          <div>Start amount: {{ arbitrage.startAmount }}</div>
+          <div>End amount: {{ arbitrage.endAmount }}</div>
+          <div>Profit asset: {{ arbitrage.profitAsset }}</div>
           <div class="swaps">
             <div
               v-for="swap in arbitrage.swaps"
               :key="swap.event.logIndex"
               class="swap"
             >
-              <div>from: {{ swap.from }}</div>
-              <div>to: {{ swap.to }}</div>
-              <div>amount in: {{ swap.amountIn }}</div>
-              <div>amount out: {{ swap.amountOut }}</div>
-              <div>asset in: {{ swap.assetIn }}</div>
-              <div>asset out: {{ swap.assetOut }}</div>
-              <div>contract: {{ swap.contract }}</div>
-              <div>event: {{ swap.event }}</div>
-              <div>transaction: {{ swap.transaction }}</div>
+              <div>From: {{ swap.from }}</div>
+              <div>To: {{ swap.to }}</div>
+              <div>Amount in: {{ swap.amountIn }}</div>
+              <div>Asset in: {{ swap.assetIn }}</div>
+              <div>Amount out: {{ swap.amountOut }}</div>
+              <div>Asset out: {{ swap.assetOut }}</div>
+              <div>Protocol: {{ swap.contract.protocol.abi }}</div>
+              <div>Venue: {{ swap.event.address }}</div>
             </div>
           </div>
         </div>
@@ -67,15 +66,14 @@
           class="mev"
         >
           <h2>Liquidation</h2>
-          <div>collateral amount: {{ liquidation.seizure.amount }}</div>
-          <div>debt amount: {{ liquidation.repayment.amount }}</div>
-          <div>collateral asset: {{ liquidation.seizure.asset }}</div>
-          <div>debt asset: {{ liquidation.repayment.asset }}</div>
-          <div>liquidator: {{ liquidation.seizure.seizor }}</div>
-          <div>borrower: {{ liquidation.seizure.borrower }}</div>
-          <div>contract: {{ liquidation.seizure.contract }}</div>
-          <div>event: {{ liquidation.seizure.event }}</div>
-          <div>transaction: {{ liquidation.seizure.transaction }}</div>
+          <div>Collateral amount: {{ liquidation.seizure.amount }}</div>
+          <div>Collateral asset: {{ liquidation.seizure.asset }}</div>
+          <div>Debt amount: {{ liquidation.repayment.amount }}</div>
+          <div>Debt asset: {{ liquidation.repayment.asset }}</div>
+          <div>Liquidator: {{ liquidation.seizure.seizor }}</div>
+          <div>Dorrower: {{ liquidation.seizure.borrower }}</div>
+          <div>Contract: {{ liquidation.seizure.contract.protocol.abi }}</div>
+          <div>Venue: {{ liquidation.seizure.event.address }}</div>
         </div>
       </div>
     </div>
