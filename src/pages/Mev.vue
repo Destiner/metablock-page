@@ -96,8 +96,8 @@
   lang="ts"
 >
 import { AlchemyProvider } from '@ethersproject/providers';
-import { ref, watch } from 'vue';
 import { ChainId, Inspector } from 'mev-inspect';
+import { ref, watch } from 'vue';
 
 interface Example {
   label: string;
@@ -169,12 +169,12 @@ watch(txHash, () => {
   mev.value = [];
 });
 
-function useExample(newChainId: ChainId, hash: string) {
+function useExample(newChainId: ChainId, hash: string): void {
   chainId.value = newChainId;
   txHash.value = hash;
 }
 
-async function inspect() {
+async function inspect(): Promise<void> {
   loading.value = true;
   const provider = new AlchemyProvider(
     chainId.value,
@@ -190,26 +190,24 @@ async function inspect() {
 #app {
   display: flex;
   justify-content: center;
-  margin-top: 60px;
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  color: #2c3e50;
 }
 
 .page {
-  width: 600px;
   display: flex;
   flex-direction: column;
   gap: 8px;
+  width: 100%;
+  margin: 16px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (min-width: 768px) {
   #app {
-    margin-top: initial;
+    margin-top: 60px;
   }
 
   .page {
-    width: 100%;
-    margin: 16px;
+    width: 600px;
+    margin: initial;
   }
 }
 
@@ -220,8 +218,8 @@ async function inspect() {
 }
 
 .example {
-  font-size: 14px;
   color: #6a40d5;
+  font-size: 14px;
   cursor: pointer;
 }
 
@@ -232,8 +230,8 @@ async function inspect() {
 }
 
 .mev {
-  background: #eee;
   padding: 8px;
+  background: #eee;
 }
 
 .swaps {
@@ -243,7 +241,7 @@ async function inspect() {
 }
 
 .swap {
-  background: #ccc;
   padding: 8px;
+  background: #ccc;
 }
 </style>
