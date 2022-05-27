@@ -40,45 +40,48 @@
         class="mevs"
       >
         <div
-          v-for="(mevItem, index) in mev"
+          v-for="(arbitrage, index) in arbitrages"
           :key="index"
           class="mev"
         >
-          <div v-if="mevItem.swaps">
-            <h3>Arbitrage</h3>
-            <div>start amount: {{ mevItem.startAmount }}</div>
-            <div>end amount: {{ mevItem.endAmount }}</div>
-            <div>profit asset: {{ mevItem.profitAsset }}</div>
-            <div class="swaps">
-              <div
-                v-for="swap in mevItem.swaps"
-                :key="swap.event.logIndex"
-                class="swap"
-              >
-                <div>from: {{ swap.from }}</div>
-                <div>to: {{ swap.to }}</div>
-                <div>amount in: {{ swap.amountIn }}</div>
-                <div>amount out: {{ swap.amountOut }}</div>
-                <div>asset in: {{ swap.assetIn }}</div>
-                <div>asset out: {{ swap.assetOut }}</div>
-                <div>contract: {{ swap.contract }}</div>
-                <div>event: {{ swap.event }}</div>
-                <div>transaction: {{ swap.transaction }}</div>
-              </div>
+          <h3>Arbitrage</h3>
+          <div>start amount: {{ arbitrage.startAmount }}</div>
+          <div>end amount: {{ arbitrage.endAmount }}</div>
+          <div>profit asset: {{ arbitrage.profitAsset }}</div>
+          <div class="swaps">
+            <div
+              v-for="swap in arbitrage.swaps"
+              :key="swap.event.logIndex"
+              class="swap"
+            >
+              <div>from: {{ swap.from }}</div>
+              <div>to: {{ swap.to }}</div>
+              <div>amount in: {{ swap.amountIn }}</div>
+              <div>amount out: {{ swap.amountOut }}</div>
+              <div>asset in: {{ swap.assetIn }}</div>
+              <div>asset out: {{ swap.assetOut }}</div>
+              <div>contract: {{ swap.contract }}</div>
+              <div>event: {{ swap.event }}</div>
+              <div>transaction: {{ swap.transaction }}</div>
             </div>
           </div>
-          <div v-else-if="mevItem.repayment">
-            <h3>Liquidation</h3>
-            <div>collateral amount: {{ mevItem.seizure.amount }}</div>
-            <div>debt amount: {{ mevItem.repayment.amount }}</div>
-            <div>collateral asset: {{ mevItem.seizure.assetC }}</div>
-            <div>debt asset: {{ mevItem.repayment.assetD }}</div>
-            <div>liquidator: {{ mevItem.seizure.seizor }}</div>
-            <div>borrower: {{ mevItem.seizure.borrower }}</div>
-            <div>contract: {{ mevItem.seizure.contract }}</div>
-            <div>event: {{ mevItem.seizure.event }}</div>
-            <div>transaction: {{ mevItem.seizure.transaction }}</div>
-          </div>
+        </div>
+
+        <div
+          v-for="(liquidation, index) in liquidations"
+          :key="index"
+          class="mev"
+        >
+          <h3>Liquidation</h3>
+          <div>collateral amount: {{ liquidation.seizure.amount }}</div>
+          <div>debt amount: {{ liquidation.repayment.amount }}</div>
+          <div>collateral asset: {{ liquidation.seizure.asset }}</div>
+          <div>debt asset: {{ liquidation.repayment.asset }}</div>
+          <div>liquidator: {{ liquidation.seizure.seizor }}</div>
+          <div>borrower: {{ liquidation.seizure.borrower }}</div>
+          <div>contract: {{ liquidation.seizure.contract }}</div>
+          <div>event: {{ liquidation.seizure.event }}</div>
+          <div>transaction: {{ liquidation.seizure.transaction }}</div>
         </div>
       </div>
     </div>
@@ -90,8 +93,16 @@
   lang="ts"
 >
 import { AlchemyProvider } from '@ethersproject/providers';
-import { ChainId, Inspector, TxMev } from 'mev-inspect';
-import { ref, watch } from 'vue';
+import {
+  Arbitrage,
+  ChainId,
+  Inspector,
+  Liquidation,
+  TxMev,
+  isArbitrage,
+  isLiquidation,
+} from 'mev-inspect';
+import { computed, ref, watch } from 'vue';
 
 interface Example {
   label: string;
@@ -155,6 +166,18 @@ const loading = ref(false);
 
 const mev = ref<TxMev[]>([]);
 
+const arbitrages = computed(() =>
+  mev.value.filter((mevItem: TxMev): mevItem is Arbitrage =>
+    isArbitrage(mevItem),
+  ),
+);
+
+const liquidations = computed(() =>
+  mev.value.filter((mevItem: TxMev): mevItem is Liquidation =>
+    isLiquidation(mevItem),
+  ),
+);
+
 watch(chainId, () => {
   mev.value = [];
 });
@@ -198,7 +221,7 @@ async function inspect(): Promise<void> {
 
 @media screen and (min-width: 768px) {
   .page {
-    margin-top: 60px;
+    padding: 60px;
   }
 
   .content {
