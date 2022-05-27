@@ -23,16 +23,8 @@
         type="text"
       />
     </div>
-    <div class="examples">
-      <h4>Examples</h4>
-      <div
-        v-for="example in examples"
-        :key="example.hash"
-        class="example"
-        @click="useExample(example.chainId, example.hash)"
-      >
-        {{ example.label }}
-      </div>
+    <div class="example">
+      <div @click="getExample()">Try random example</div>
     </div>
     <div>
       <button
@@ -169,9 +161,11 @@ watch(txHash, () => {
   mev.value = [];
 });
 
-function useExample(newChainId: ChainId, hash: string): void {
-  chainId.value = newChainId;
-  txHash.value = hash;
+function getExample(): void {
+  const index = Math.floor(Math.random() * examples.length);
+  const example = examples[index];
+  chainId.value = example.chainId;
+  txHash.value = example.hash;
 }
 
 async function inspect(): Promise<void> {
