@@ -1,13 +1,17 @@
 <template>
-  <Select
-    class="select"
-    :model-value="modelValue"
-    :label="label"
-    :options="options"
-    @update:model-value="handleUpdate"
-  >
-    <template #trigger="{ selectedItem }"> {{ selectedItem.label }} </template>
-  </Select>
+  <div class="select">
+    <Select
+      :model-value="modelValue"
+      :label="label"
+      :options="options"
+      @update:model-value="handleUpdate"
+    >
+      <template #trigger="{ selectedItem }">
+        {{ selectedItem.label }}
+        <IconArrowDown class="icon" />
+      </template>
+    </Select>
+  </div>
 </template>
 
 <script
@@ -15,6 +19,8 @@
   lang="ts"
 >
 import { Select } from 'brickwork-vue';
+
+import IconArrowDown from '@/components/icons/ArrowDown.vue';
 
 defineProps({
   modelValue: {
@@ -40,5 +46,27 @@ function handleUpdate(value: string): void {
 
 <style scoped>
 .select {
+  --color-label: black;
+  --font-size-label: 12px;
+  --color-button: black;
+  --border-radius-button: 0;
+  --font-size-button: 14px;
+  --background-button: #eee;
+  --background-button-hover: #eee;
+  --box-shadow-button: none;
+  --box-shadow-button-hover: none;
+  --padding-list: 0;
+  --border-radius-list: 0;
+  --box-shadow-list: none;
+  --padding-item: 4px 16px;
+  --color-item: black;
+  --border-radius-item: 0;
+  --background-item-active: #eee;
+  --color-item-active: black;
+}
+
+.icon {
+  width: 12px;
+  height: 12px;
 }
 </style>
