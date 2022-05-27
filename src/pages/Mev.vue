@@ -23,7 +23,7 @@
         </div>
         <div>
           <MetaButton
-            :disabled="loading"
+            :disabled="loading || !isValidTx"
             :label="'Inspect'"
             @click="inspect"
           />
@@ -200,6 +200,11 @@ async function inspect(): Promise<void> {
   mev.value = await inspect.tx(txHash.value);
   loading.value = false;
 }
+
+const isValidTx = computed(() => {
+  const groups = txHash.value.match(/0x[0-9a-f]{64}/);
+  return !!groups && groups.length > 0;
+})
 </script>
 
 <style scoped>
