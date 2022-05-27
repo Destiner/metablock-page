@@ -7,8 +7,10 @@
       @update:model-value="handleUpdate"
     >
       <template #trigger="{ selectedItem }">
-        {{ selectedItem.label }}
-        <IconArrowDown class="icon" />
+        <div class="trigger">
+          {{ selectedItem.label }}
+          <IconArrowDown class="icon" />
+        </div>
       </template>
     </Select>
   </div>
@@ -48,6 +50,7 @@ function handleUpdate(value: string): void {
 .select {
   --color-label: black;
   --font-size-label: 12px;
+  --padding-button: 8px;
   --color-button: black;
   --border-radius-button: 0;
   --font-size-button: 14px;
@@ -63,6 +66,11 @@ function handleUpdate(value: string): void {
   --border-radius-item: 0;
   --background-item-active: #eee;
   --color-item-active: black;
+}
+
+.trigger {
+  display: flex;
+  gap: 128px;
 }
 
 .icon {
