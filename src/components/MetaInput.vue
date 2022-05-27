@@ -36,10 +36,14 @@ function handleUpdate(value: string): void {
 .input {
   --color-label: black;
   --color-input: black;
+  --padding-input: 8px;
+  --font-size-input: 14px;
   --background-input: #eee;
   --background-input-focus: #d9d9d9;
   --border-input: 1px solid #b5b5b5;
   --border-input-focus: 1px solid #b5b5b5;
   --border-radius-input: 0;
+
+  width: 100%;
 }
 </style>
