@@ -10,7 +10,7 @@ const router = createRouter({
   history: routerHistory,
   routes: [
     { path: '/', component: Main },
-    { path: '/mev', component: Mev },
+    { path: '/tools/mev', component: Mev },
   ],
 });
 
