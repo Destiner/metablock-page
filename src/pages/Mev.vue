@@ -1,28 +1,33 @@
 <template>
   <div class="page">
     <div class="content">
-      <div class="chain">
-        <MetaSelect
-          v-model="chainId"
-          :options="chains"
-          :label="'Chain'"
-        />
-      </div>
-      <div class="tx">
-        <MetaInput
-          v-model="txHash"
-          :label="'Transaction hash'"
-        />
-      </div>
-      <div class="example">
-        <div @click="getExample()">Try random example</div>
-      </div>
-      <div>
-        <MetaButton
-          :disabled="loading"
-          :label="'Inspect'"
-          @click="inspect"
-        />
+      <h1>Public MEV explorer</h1>
+      <div class="form">
+        <div class="form-inputs">
+          <div class="chain">
+            <MetaSelect
+              v-model="chainId"
+              :options="chains"
+              :label="'Chain'"
+            />
+          </div>
+          <div class="tx">
+            <MetaInput
+              v-model="txHash"
+              :label="'Transaction hash'"
+            />
+          </div>
+          <div class="example">
+            <div @click="getExample()">Try random example</div>
+          </div>
+        </div>
+        <div>
+          <MetaButton
+            :disabled="loading"
+            :label="'Inspect'"
+            @click="inspect"
+          />
+        </div>
       </div>
       <div
         v-if="!loading"
@@ -33,7 +38,7 @@
           :key="index"
           class="mev"
         >
-          <h3>Arbitrage</h3>
+          <h2>Arbitrage</h2>
           <div>start amount: {{ arbitrage.startAmount }}</div>
           <div>end amount: {{ arbitrage.endAmount }}</div>
           <div>profit asset: {{ arbitrage.profitAsset }}</div>
@@ -61,7 +66,7 @@
           :key="index"
           class="mev"
         >
-          <h3>Liquidation</h3>
+          <h2>Liquidation</h2>
           <div>collateral amount: {{ liquidation.seizure.amount }}</div>
           <div>debt amount: {{ liquidation.repayment.amount }}</div>
           <div>collateral asset: {{ liquidation.seizure.asset }}</div>
@@ -208,7 +213,7 @@ async function inspect(): Promise<void> {
 .content {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 32px;
   width: 100%;
   margin: 16px;
 }
@@ -222,6 +227,31 @@ async function inspect(): Promise<void> {
     width: 600px;
     margin: initial;
   }
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.form-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+h2 {
+  margin: 0;
+  margin-bottom: 16px;
+  font-size: 16px;
+  text-align: center;
 }
 
 .chain,
@@ -243,8 +273,10 @@ async function inspect(): Promise<void> {
 }
 
 .mev {
-  padding: 8px;
-  background: #eee;
+  padding: 16px;
+  border: 1px solid #a6a6a6;
+  background: #f2f2f2;
+  box-shadow: 4px 4px 4px #00000040;
 }
 
 .swaps {
