@@ -204,7 +204,7 @@ async function inspect(): Promise<void> {
 const isValidTx = computed(() => {
   const groups = txHash.value.match(/0x[0-9a-f]{64}/);
   return !!groups && groups.length > 0;
-})
+});
 </script>
 
 <style scoped>
