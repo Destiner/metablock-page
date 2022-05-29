@@ -17,14 +17,9 @@
   </div>
 </template>
 
-<script
-  setup
-  lang="ts"
->
-import '@fontsource/courier-prime';
-</script>
-
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
+
 .page {
   display: flex;
   justify-content: center;
@@ -35,37 +30,30 @@ import '@fontsource/courier-prime';
   font-size: 18px;
   line-height: 1.6;
 }
-
 .content {
   max-width: 800px;
   margin-top: 24vh;
 }
-
 @media (min-width: 768px) {
   .content {
     min-width: 600px;
   }
 }
-
 a {
   color: #333;
 }
-
 .cta {
   margin-top: 32px;
 }
-
 /* Reset */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
-
 html {
   height: 100%;
 }
-
 img,
 picture,
 video,
@@ -74,14 +62,12 @@ svg {
   display: block;
   max-width: 100%;
 }
-
 input,
 button,
 textarea,
 select {
   font: inherit;
 }
-
 p,
 h1,
 h2,

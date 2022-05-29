@@ -3,50 +3,41 @@
   "version": "1.0.0",
   "description": "Metablock Page",
   "author": "Timur Badretdinov <destinerx@gmail.com>",
-  "keywords": [
-    "vue",
-    "starter"
-  ],
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git://github.com/Destiner/metablock-page.git"
   },
   "scripts": {
-    "build": "vite build",
-    "dev": "vite",
+    "dev": "astro dev",
+    "build": "astro build",
     "lint": "npm run lint:prettier && npm run lint:eslint && npm run lint:stylelint",
     "lint:prettier": "prettier -c \"src/**/*.{json,js,ts,vue}\"",
     "lint:eslint": "eslint \"src/**/*.{js,ts,vue}\"",
     "lint:stylelint": "stylelint \"src/**/*.{css,vue}\"",
     "typecheck": "npx tsc --noEmit && npx vue-tsc --noEmit"
   },
-  "dependencies": {
-    "@ethersproject/providers": "^5.6.8",
-    "@fontsource/courier-prime": "^4.5.7",
-    "@vueuse/head": "^0.7.6",
-    "brickwork-vue": "^0.5.2",
-    "mev-inspect": "^0.8.1",
-    "vue": "3.2.33",
-    "vue-router": "4.0.14"
-  },
   "devDependencies": {
-    "@babel/types": "7.17.10",
-    "@typescript-eslint/eslint-plugin": "5.26.0",
-    "@typescript-eslint/parser": "5.26.0",
-    "@vitejs/plugin-vue": "2.3.3",
-    "@vue/compiler-sfc": "3.2.33",
-    "eslint": "8.15.0",
-    "eslint-import-resolver-typescript": "2.7.1",
-    "eslint-plugin-import": "2.26.0",
-    "eslint-plugin-vue": "8.7.1",
-    "prettier": "2.6.2",
-    "stylelint": "14.8.1",
-    "stylelint-config-property-sort-order-smacss": "9.0.0",
-    "stylelint-config-recommended-vue": "1.4.0",
-    "stylelint-config-standard": "25.0.0",
-    "typescript": "4.7.2",
-    "vite": "2.9.9",
-    "vue-tsc": "0.34.16"
+    "@astrojs/sitemap": "^0.1.0",
+    "@astrojs/vue": "^0.1.1",
+    "@types/luxon": "^2.3.1",
+    "@typescript-eslint/eslint-plugin": "^5.19.0",
+    "@typescript-eslint/parser": "^5.19.0",
+    "astro": "^1.0.0-beta.36",
+    "astro-analytics": "^2.1.1",
+    "eslint": "^8.13.0",
+    "eslint-import-resolver-typescript": "^2.7.1",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-vue": "^8.6.0",
+    "luxon": "^2.3.1",
+    "prettier": "^2.6.2",
+    "stylelint": "^14.6.1",
+    "stylelint-config-property-sort-order-smacss": "^9.0.0",
+    "stylelint-config-recommended-vue": "^1.4.0",
+    "stylelint-config-standard": "^25.0.0",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.3",
+    "vue": "^3.2.32",
+    "vue-tsc": "^0.34.5"
   }
 }
