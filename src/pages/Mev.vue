@@ -85,6 +85,7 @@
   lang="ts"
 >
 import { AlchemyProvider } from '@ethersproject/providers';
+import { useHead } from '@vueuse/head';
 import {
   Arbitrage,
   ChainId,
@@ -153,6 +154,10 @@ const chains: Chain[] = [
     value: '42161',
   },
 ];
+
+useHead({
+  title: 'Public MEV explorer | Metablock',
+});
 
 const chainId = ref('1');
 
