@@ -1,3 +1,4 @@
+import { createHead } from '@vueuse/head';
 import { createApp } from 'vue';
 import { createWebHistory, createRouter } from 'vue-router';
 
@@ -14,9 +15,12 @@ const router = createRouter({
   ],
 });
 
+const head = createHead();
+
 const app = createApp(App);
 
 app.use(router);
+app.use(head);
 
 app.mount('#app');
 
