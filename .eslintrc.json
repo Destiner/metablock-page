@@ -37,7 +37,10 @@
     ],
     "import/no-unused-modules": "error",
     "import/no-mutable-exports": "error",
-    "import/no-extraneous-dependencies": ["error", {"devDependencies": ["test/**/*.test.ts"]}],
+    "import/no-extraneous-dependencies": [
+      "error",
+      { "devDependencies": ["vite.config.ts", "test/**/*.test.ts"] }
+    ],
     "@typescript-eslint/explicit-function-return-type": "error",
     "vue/component-api-style": ["error", ["script-setup"]],
     "vue/custom-event-name-casing": ["error", "kebab-case"],
