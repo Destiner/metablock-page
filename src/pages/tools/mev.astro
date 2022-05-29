@@ -1,0 +1,13 @@
+---
+import HeadBase from '@/components/HeadBase.astro';
+import MevPage from '@/components/pages/Mev.vue';
+---
+
+<html lang="en">
+  <head>
+    <HeadBase title="Public MEV explorer | Metablock" desciption="" />
+  </head>
+  <body>
+    <MevPage client:load />
+  </body>
+</html>

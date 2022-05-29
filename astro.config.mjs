@@ -6,4 +6,9 @@ export default defineConfig({
   site: 'https://example.org',
   trailingSlash: 'always',
   integrations: [vue(), sitemap()],
+  vite: {
+    build: {
+      target: 'es2020',
+    },
+  },
 });
