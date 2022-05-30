@@ -3,7 +3,7 @@ import vue from '@astrojs/vue';
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://example.org',
+  site: 'https://metablock.dev',
   trailingSlash: 'always',
   integrations: [vue(), sitemap()],
   vite: {
