@@ -71,7 +71,7 @@
           <div>Debt amount: {{ liquidation.repayment.amount }}</div>
           <div>Debt asset: {{ liquidation.repayment.asset }}</div>
           <div>Liquidator: {{ liquidation.seizure.seizor }}</div>
-          <div>Dorrower: {{ liquidation.seizure.borrower }}</div>
+          <div>Borrower: {{ liquidation.seizure.borrower }}</div>
           <div>Contract: {{ liquidation.seizure.contract.protocol.abi }}</div>
           <div>Venue: {{ liquidation.seizure.event.address }}</div>
         </div>
