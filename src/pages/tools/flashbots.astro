@@ -1,0 +1,13 @@
+---
+import HeadBase from '@/components/HeadBase.astro';
+import FlashbotsPage from '@/components/pages/Flashbots.vue';
+---
+
+<html lang="en">
+  <head>
+    <HeadBase title="Flashbots bundles | Metablock" description="Explore latest Flashbots mined blocks and bundles" />
+  </head>
+  <body>
+    <FlashbotsPage client:load />
+  </body>
+</html>
