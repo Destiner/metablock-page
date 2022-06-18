@@ -71,15 +71,21 @@ class Flashbots {
   }
 
   async #fetchBlocks(params: BlockRequest): Promise<BlockListResponse> {
+    const corsEndpoint = 'https://cors-proxy-3agi.onrender.com';
     const apiEndpoint = 'https://blocks.flashbots.net';
-    const url = new URL(`${apiEndpoint}/v1/blocks`);
+    const endpoint = `${corsEndpoint}/${apiEndpoint}`;
+    const url = new URL(`${endpoint}/v1/blocks`);
     const paramValues: Record<string, string> = {};
     for (const index in Object.entries(params)) {
       const [key, value] = Object.entries(params)[index];
       paramValues[key] = value;
     }
     url.search = new URLSearchParams(paramValues).toString();
-    const response = await fetch(url.toString());
+    const response = await fetch(url.toString(), {
+      headers: {
+        Origin: 'https://flashbots.net',
+      }
+    });
     const data = await response.json();
     return data;
   }
