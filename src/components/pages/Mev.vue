@@ -29,14 +29,16 @@
           />
         </div>
       </div>
+      <div v-if="loading" class="loading">
+        <LoadingIndicator />
+      </div>
       <div
-        v-if="!loading"
+        v-else
         class="mevs"
       >
-        <div
+        <MetaCard
           v-for="(arbitrage, index) in arbitrages"
           :key="index"
-          class="mev"
         >
           <h2>Arbitrage</h2>
           <div>Start amount: {{ arbitrage.startAmount }}</div>
@@ -58,12 +60,11 @@
               <div>Venue: {{ swap.event.address }}</div>
             </div>
           </div>
-        </div>
+        </MetaCard>
 
-        <div
+        <MetaCard
           v-for="(liquidation, index) in liquidations"
           :key="index"
-          class="mev"
         >
           <h2>Liquidation</h2>
           <div>Collateral amount: {{ liquidation.seizure.amount }}</div>
@@ -74,7 +75,7 @@
           <div>Borrower: {{ liquidation.seizure.borrower }}</div>
           <div>Contract: {{ liquidation.seizure.contract.protocol.abi }}</div>
           <div>Venue: {{ liquidation.seizure.event.address }}</div>
-        </div>
+        </MetaCard>
       </div>
     </div>
   </div>
@@ -96,7 +97,9 @@ import {
 } from 'mev-inspect';
 import { computed, ref, watch } from 'vue';
 
+import LoadingIndicator from '@/components/LoadingIndicator.vue';
 import MetaButton from '@/components/MetaButton.vue';
+import MetaCard from '@/components/MetaCard.vue';
 import MetaInput from '@/components/MetaInput.vue';
 import MetaSelect from '@/components/MetaSelect.vue';
 
@@ -269,17 +272,16 @@ h2 {
   cursor: pointer;
 }
 
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .mevs {
   display: flex;
   flex-direction: column;
   gap: 8px;
-}
-
-.mev {
-  padding: 16px;
-  border: 1px solid #a6a6a6;
-  background: #f2f2f2;
-  box-shadow: 4px 4px 4px #00000040;
 }
 
 .swaps {
