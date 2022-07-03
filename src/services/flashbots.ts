@@ -28,7 +28,7 @@ interface TransactionResponse {
   bundle_index: number;
   block_number: number;
   eoa_address: string;
-  to_address : string;
+  to_address: string;
   gas_used: number;
   gas_price: string;
   coinbase_transfer: string;
@@ -59,7 +59,9 @@ class Flashbots {
     const blockListResponse = await this.#fetchBlocks({
       limit,
     });
-    return blockListResponse.blocks.map((response) => this.#formatBlock(response));
+    return blockListResponse.blocks.map((response) =>
+      this.#formatBlock(response),
+    );
   }
 
   async getBlock(number: number): Promise<Block> {
@@ -84,7 +86,7 @@ class Flashbots {
     const response = await fetch(url.toString(), {
       headers: {
         Origin: 'https://flashbots.net',
-      }
+      },
     });
     const data = await response.json();
     return data;
@@ -96,12 +98,17 @@ class Flashbots {
       miner: response.miner,
       reward: BigInt(response.miner_reward),
       bundles: [],
-    }
+    };
     for (const transactionResponse of response.transactions) {
       if (block.bundles.length <= transactionResponse.bundle_index) {
         const type = transactionResponse.bundle_type;
         const bundle: Bundle = {
-          type: type === 'flashbots' ? 'Flashbots' : type === 'rogue' ? 'Rogue' : 'MinerPayout',
+          type:
+            type === 'flashbots'
+              ? 'Flashbots'
+              : type === 'rogue'
+              ? 'Rogue'
+              : 'MinerPayout',
           transactions: [],
         };
         block.bundles.push(bundle);
@@ -111,7 +118,9 @@ class Flashbots {
         from: transactionResponse.eoa_address,
         to: transactionResponse.to_address,
       };
-      block.bundles[transactionResponse.bundle_index].transactions.push(transaction);
+      block.bundles[transactionResponse.bundle_index].transactions.push(
+        transaction,
+      );
     }
     return block;
   }

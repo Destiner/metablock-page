@@ -29,7 +29,10 @@
           />
         </div>
       </div>
-      <div v-if="loading" class="loading">
+      <div
+        v-if="loading"
+        class="loading"
+      >
         <LoadingIndicator />
       </div>
       <div
@@ -81,10 +84,7 @@
   </div>
 </template>
 
-<script
-  setup
-  lang="ts"
->
+<script setup lang="ts">
 import { AlchemyProvider } from '@ethersproject/providers';
 import {
   Arbitrage,

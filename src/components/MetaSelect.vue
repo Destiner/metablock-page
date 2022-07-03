@@ -16,10 +16,7 @@
   </div>
 </template>
 
-<script
-  setup
-  lang="ts"
->
+<script setup lang="ts">
 import { Select } from 'brickwork-vue';
 
 import IconArrowDown from '@/components/icons/ArrowDown.vue';

@@ -8,10 +8,7 @@
   </Input>
 </template>
 
-<script
-  setup
-  lang="ts"
->
+<script setup lang="ts">
 import { Input } from 'brickwork-vue';
 
 defineProps({

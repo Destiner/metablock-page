@@ -116,10 +116,7 @@
   </div>
 </template>
 
-<script
-  setup
-  lang="ts"
->
+<script setup lang="ts">
 import { AlchemyProvider, TransactionReceipt } from '@ethersproject/providers';
 import { formatEther as formatEth } from '@ethersproject/units';
 import { computed, onMounted, ref } from 'vue';
